@@ -1,0 +1,6 @@
+use_frameworks!
+target 'Reminder_Tests' do
+  pod 'Reminder', :path => '../'
+  
+  
+end

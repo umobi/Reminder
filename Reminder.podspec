@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Reminder'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of Reminder.'
+  s.version          = '1.0.0-beta1'
+  s.summary          = 'This is a beta library.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,16 +18,17 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Do not use this library. It may cause unexpected actions
                        DESC
 
-  s.homepage         = 'https://github.com/brennobemoura/Reminder'
+  s.homepage         = 'https://github.com/umobi/Reminder'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'brennobemoura' => 'brenno@umobi.com.br' }
-  s.source           = { :git => 'https://github.com/brennobemoura/Reminder.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/umobi/Reminder.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
+  s.swift_version = '5.0'
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'Reminder/Classes/**/*'
@@ -39,4 +40,5 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  
 end

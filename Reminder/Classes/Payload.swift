@@ -9,7 +9,7 @@ import Foundation
 
 public protocol ReminderMappable {
     func toJSON() -> [String: Any]
-    init?(JSON: [String: Any])
+    static func fromJSON(_ JSON: [String: Any]) -> Self?
 }
 
 public class Payload<T> {
@@ -73,7 +73,7 @@ public extension Payload {
         guard let value: T = ({
             if let dict = valueKey as? [String: Any] {
                 if let mappableType = T.self as? ReminderMappable.Type {
-                    return mappableType.init(JSON: dict) as? T
+                    return mappableType.fromJSON(dict) as? T
                 }
                 
                 if let decodableType = T.self as? Decodable.Type, let object = try? decodableType.init(JSON: dict) as? T {

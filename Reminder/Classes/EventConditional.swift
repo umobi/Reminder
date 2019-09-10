@@ -36,7 +36,7 @@ public protocol ActionController {
 public extension ActionController {
     static func run() {
         self.actions.forEach {
-            $0.runNow()
+            Publish.create($0)
         }
     }
 }

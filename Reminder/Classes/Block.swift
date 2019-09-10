@@ -10,46 +10,56 @@ import Foundation
 
 public class Block {
     public enum Priority {
-        case now
+        case now(TimeInterval)
         case later(Date, TimeInterval)
     }
     
-    let action: Action
+    let action: ActionBlock
     let priority: Priority
     
-    init(_ action: Action) {
+    init(_ action: ActionBlock, delay: TimeInterval = 0) {
         self.action = action
-        self.priority = .now
+        self.priority = .now(delay)
     }
     
-    init(_ action: Action, priority: Priority) {
+    init(_ action: ActionBlock, priority: Priority) {
         self.action = action
         
-        guard case .later(let date, let time) = priority else {
-            self.priority = .now
-            return
+        switch priority {
+        case .now(let delay):
+            self.priority = .now(delay)
+            
+        case .later(let date, let time):
+            let run = date.timeIntervalSince(Date()) + time
+            
+            if run <= 0 {
+                self.priority = .now(0)
+                return
+            }
+            
+            self.priority = .later(date, run)
         }
-        
-        let run = date.timeIntervalSince(Date()) + time
-        
-        if run <= 0 {
-            self.priority = .now
-            return
-        }
-        
-        self.priority = .later(date, run)
     }
     
     func run() {
+        let action = Action(block: self.action)
         OperationQueue.main.addOperation {
-            self.action.run()
+            action.run()
         }
         
         action.wait(for: .released)
-        usleep(1000000)
+        usleep(useconds_t(self.delay) * 1000000)
     }
     
-    func append() {
+    var delay: TimeInterval {
+        guard case .now(let timeInterval) = self.priority, timeInterval > 0 else {
+            return 0
+        }
+        
+        return timeInterval
+    }
+    
+    func publish() {
         Queue.shared.append(self)
     }
 }

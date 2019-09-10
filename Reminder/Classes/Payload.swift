@@ -12,13 +12,13 @@ public protocol ReminderMappable {
     static func fromJSON(_ JSON: [String: Any]) -> Self?
 }
 
-public class Payload<T> {
-    private let _value: T?
-    public var value: T {
+public class Payload<Element> {
+    private let _value: Element?
+    public var value: Element {
         return self._value!
     }
     
-    public init(_ value: T) {
+    public init(_ value: Element) {
         self._value = value
     }
     
@@ -26,7 +26,7 @@ public class Payload<T> {
         self._value = nil
     }
     
-    public static var empty: Payload<T> {
+    public static var empty: Payload<Element> {
         return .init()
     }
     
@@ -70,18 +70,18 @@ public extension Payload {
             return nil
         }
         
-        guard let value: T = ({
+        guard let value: Element = ({
             if let dict = valueKey as? [String: Any] {
-                if let mappableType = T.self as? ReminderMappable.Type {
-                    return mappableType.fromJSON(dict) as? T
+                if let mappableType = Element.self as? ReminderMappable.Type {
+                    return mappableType.fromJSON(dict) as? Element
                 }
                 
-                if let decodableType = T.self as? Decodable.Type, let object = try? decodableType.init(JSON: dict) as? T {
+                if let decodableType = Element.self as? Decodable.Type, let object = try? decodableType.init(JSON: dict) as? Element {
                     return object
                 }
             }
             
-            return valueKey as? T
+            return valueKey as? Element
         }()) else {
             return nil
         }

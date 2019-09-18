@@ -90,13 +90,13 @@ public extension Payload {
     }
 }
 
-public extension Encodable {
+extension Encodable {
     func asObject() throws -> [String: Any] {
         return (try JSONSerialization.jsonObject(with: try JSONEncoder().encode(self), options: .allowFragments) as? [String : Any]) ?? [:]
     }
 }
 
-public extension Decodable {
+extension Decodable {
     init?(JSON: Any) throws {
         self = try JSONDecoder().decode(Self.self, from: try JSONSerialization.data(withJSONObject: JSON, options: []))
     }

@@ -8,28 +8,30 @@
 
 import Foundation
 
-public class Action {
-    let object: Any
+public enum ActionBlock {
+    case async((@escaping (ReminderStatus) -> Void) -> Void)
+    case block(() -> ReminderStatus)
     
-    init(function: @escaping () -> ReminderStatus) {
-        self.object = function
+    static func asyncEvent<T: EventAction>(_ object: T) -> ActionBlock {
+        return .async({ asyncBlock in
+            T.async({ status in
+                T.get().update(with: status)
+                asyncBlock(status)
+            })
+        })
     }
+}
+
+public class Action {
+    private let block: ActionBlock
     
-    init(async: @escaping (@escaping (ReminderStatus) -> Void) -> Void) {
-        self.object = async
+    init(block: ActionBlock) {
+        self.block = block
     }
     
     func run(_ completion: ((ReminderStatus) -> Void)? = nil) {
-        if let function = self.object as? () -> ReminderStatus {
-            self.saveExecution(.running)
-            
-            let executionResponse = function()
-            completion?(executionResponse)
-            self.release()
-            return
-        }
-        
-        if let asyncBlock = self.object as? (@escaping (ReminderStatus) -> Void) -> Void {
+        switch self.block {
+        case .async(let asyncBlock):
             self.saveExecution(.running)
             
             OperationQueue.main.addOperation {
@@ -39,9 +41,14 @@ public class Action {
                 }
             }
             return
+        case .block(let function):
+            self.saveExecution(.running)
+            
+            let executionResponse = function()
+            completion?(executionResponse)
+            self.release()
+            return
         }
-        
-        self.saveExecution(.error)
     }
     
     enum Execution {

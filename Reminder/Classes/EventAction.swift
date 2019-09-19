@@ -15,7 +15,7 @@ open class EventAction: Event<ReminderStatus> {
     
     open func update(with status: ReminderStatus) {
         if case .later(let time) = status {
-            Block(self.action(), priority: .later(.init(), time)).append()
+            Block(.asyncEvent(self), priority: .later(.init(), time)).publish()
             self.update(.notDetermined).save()
             return
         }
@@ -27,16 +27,7 @@ open class EventAction: Event<ReminderStatus> {
         self.update(status).save()
     }
     
-    open func action() -> Action {
-        return .init(async: { asyncBlock in
-            self.async({ status in
-                self.update(with: status)
-                asyncBlock(status)
-            })
-        })
-    }
-    
-    open func async(_ completion: @escaping (ReminderStatus) -> Void) {
+    open class func async(_ completion: @escaping (ReminderStatus) -> Void) {
         fatalError("Override action")
     }
     
@@ -50,26 +41,32 @@ open class EventAction: Event<ReminderStatus> {
         return .create(status: event.payload.value)
     }
     
-    public static func runNow() {
-        Queue.shared.append([Block(self.create(status: .notDetermined).action())])
-    }
-    
     open var scheduleTime: TimeInterval {
         return 12*3600
     }
     
-    private static func asBlock() -> Block? {
+    open func successPriority(from date: Date) -> Block.Priority? {
+        return nil
+    }
+    
+    open var shouldRunNow: Bool {
+        return true
+    }
+}
+
+public class Publish<T: EventAction> {
+    private static func asBlock(_ delay: TimeInterval) -> Block? {
         //print(self.description)
-        let event = self.get()
+        let event = T.get()
         if case .success(let date) = event.payload.value {
             guard let priority = event.successPriority(from: date) else {
                 return nil
             }
-            return .init(event.action(), priority: priority)
+            return .init(.asyncEvent(event), priority: priority)
         }
         
         if case .notDetermined = event.payload.value {
-            return .init(event.action())
+            return .init(.asyncEvent(event))
         }
         
         guard case .denied(let date) = event.payload.value else {
@@ -77,22 +74,24 @@ open class EventAction: Event<ReminderStatus> {
         }
         
         if event.shouldRunNow {
-            return .init(event.action())
+            return .init(.asyncEvent(event), delay: delay)
         }
         
-        return .init(event.action(), priority: .later(date, event.scheduleTime))
+        return .init(.asyncEvent(event), priority: .later(date, event.scheduleTime))
     }
     
-    open func successPriority(from date: Date) -> Block.Priority? {
-        return nil
-    }
-    
-    public static func schedule() {
+    public static func schedule(delay: TimeInterval = 0) {
         //print(self.description)
-        self.asBlock()?.append()
+        self.asBlock(delay)?.publish()
     }
     
-    open var shouldRunNow: Bool {
-        return true
+    public static func runNow(delay: TimeInterval = 0) {
+        Block(.asyncEvent(
+            T.create(status: .notDetermined)
+        ), delay: delay).publish()
+    }
+    
+    static func create<T: EventAction>(_ type: T.Type) -> Publish<T> {
+        return .init()
     }
 }

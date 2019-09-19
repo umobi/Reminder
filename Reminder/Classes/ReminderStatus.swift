@@ -64,6 +64,14 @@ public enum ReminderStatus {
 }
 
 extension ReminderStatus: ReminderMappable {
+    public static func fromJSON(_ JSON: [String : Any]) -> ReminderStatus? {
+        guard let raw = JSON["raw"] as? Int else {
+            return nil
+        }
+        
+        return ReminderStatus(rawValue: raw, value: JSON["value"])
+    }
+    
     public func toJSON() -> [String : Any] {
         switch self {
         case .denied(let date):
@@ -75,13 +83,5 @@ extension ReminderStatus: ReminderMappable {
         default:
             return ["raw": self.raw]
         }
-    }
-    
-    public init?(JSON: [String : Any]) {
-        guard let raw = JSON["raw"] as? Int else {
-            return nil
-        }
-        
-        self.init(rawValue: raw, value: JSON["value"])
     }
 }

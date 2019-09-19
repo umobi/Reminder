@@ -85,6 +85,14 @@ public class Queue {
         return self.queue.remove(at: 0)
     }
     
+    private var startTime: TimeInterval {
+        guard let delay = self.queue.first?.delay else {
+            return 3
+        }
+        
+        return delay > 0 ? delay : 3
+    }
+    
     private func async() {
         if self.isRunning || self.queue.isEmpty {
             return
@@ -92,9 +100,12 @@ public class Queue {
         
         self.isRunning = true
         self.dispatchQueue.async {
-            for seconds in 0 ..< 3 {
-                ReminderConsole.print("[ReminderQueue] Running in \(3 - seconds) seconds")
-                usleep(1000000)
+            let startTime = self.startTime
+            for seconds in 0 ..< Int(startTime * 10) {
+                if seconds % 10 == 0 {
+                    ReminderConsole.print("[ReminderQueue] Running in \(Int(startTime) - seconds / 10) seconds")
+                }
+                usleep(100000)
             }
             
             Reminder.waitForViewController({

@@ -40,19 +40,21 @@ extension ReminderProtocol {
 extension ReminderProtocol {
     public static func waitForViewController(_ completion: @escaping (() -> Void), thread: DispatchQueue? = nil) {
         (thread ?? DispatchQueue.global(qos: .background)).async {
-            var isBusy = true
-            while isBusy {
+            var isBusy = false
+            repeat {
                 
-                OperationQueue.main.addOperation {
+                DispatchQueue.main.sync {
                     isBusy = (UIApplication.shared.keyWindow as? UIReminderWindow)?.visibleViewController == nil ||
                         (UIApplication.shared.keyWindow as? UIReminderWindow)?.visibleViewController is UIAlertController
-                    if isBusy {
-                        ReminderConsole.print("[Reminder] Waiting for Window.visibleViewController")
-                    }
                 }
                 
-                usleep(useconds_t(4)*1000000)
-            }
+                guard isBusy else {
+                    break
+                }
+                
+                ReminderConsole.print("[Reminder] Waiting for Window.visibleViewController")
+                usleep(useconds_t(1)*1000000)
+            } while isBusy
             
             completion()
         }

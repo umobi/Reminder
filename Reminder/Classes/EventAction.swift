@@ -94,4 +94,8 @@ public class Publish<T: EventAction> {
     static func create<T: EventAction>(_ type: T.Type) -> Publish<T> {
         return .init()
     }
+    
+    func runNow() {
+        Publish<T>.runNow()
+    }
 }

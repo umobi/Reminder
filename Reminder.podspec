@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Reminder'
-  s.version          = '1.0.0-beta1'
+  s.version          = '1.0.0-beta2'
   s.summary          = 'This is a beta library.'
 
 # This description is used to generate tags and improve search results.

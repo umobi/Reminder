@@ -28,7 +28,7 @@ Do not use this library. It may cause unexpected actions
   s.source           = { :git => 'https://github.com/umobi/Reminder.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.swift_version = '5.0'
+  s.swift_version = '5.1'
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'Reminder/Classes/**/*'

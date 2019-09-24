@@ -91,8 +91,8 @@ public extension Payload {
 }
 
 extension Encodable {
-    func asObject() throws -> [String: Any] {
-        return (try JSONSerialization.jsonObject(with: try JSONEncoder().encode(self), options: .allowFragments) as? [String : Any]) ?? [:]
+    func asObject() throws -> [String: Any]? {
+        return (try JSONSerialization.jsonObject(with: try JSONEncoder().encode(self), options: .allowFragments) as? [String : Any])
     }
 }
 

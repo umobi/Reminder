@@ -48,15 +48,19 @@ public protocol EventKey: RawRepresentable where RawValue == String {
 }
 
 public extension EventKey {
+    private var name: String {
+        return "EventKey.\(self.rawValue)"
+    }
+    
     func update<T>(_ value: T) {
-        Event<T>("EventKey.\(self.rawValue)", value: value).save()
+        Event<T>(self.name, value: value).save()
     }
     
     func remove() {
-        Event<Void>.empty().delete()
+        Event<Void>(self.name).delete()
     }
     
     func restore<T>(_ value: T.Type) -> Event<T>? {
-        return Event<T>(self.rawValue).restore()
+        return Event<T>(self.name).restore()
     }
 }

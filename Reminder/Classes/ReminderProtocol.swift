@@ -71,7 +71,6 @@ extension ReminderProtocol {
     
     func update<E, P>(for event: E) where E: Event<P> {
         self.controller.set(event.asObject(), forKey: event.name)
-        self.controller.synchronize()
     }
     
     func get<E, P>(for event: E) -> E? where E: Event<P> {

@@ -15,7 +15,7 @@ open class EventAction: Event<ReminderStatus> {
     
     open func update(with status: ReminderStatus) {
         if case .later(let time) = status {
-            Block(.asyncEvent(self), priority: .later(.init(), time)).publish()
+            Block(.asyncEvent(Self.self), priority: .later(.init(), time)).publish()
             self.update(.notDetermined).save()
             return
         }
@@ -55,18 +55,20 @@ open class EventAction: Event<ReminderStatus> {
 }
 
 public class Publish<T: EventAction> {
-    private static func asBlock(_ delay: TimeInterval) -> Block? {
+    let type: T.Type
+    
+    private func asBlock(_ delay: TimeInterval) -> Block? {
         //print(self.description)
-        let event = T.get()
+        let event = type.get()
         if case .success(let date) = event.payload.value {
             guard let priority = event.successPriority(from: date) else {
                 return nil
             }
-            return .init(.asyncEvent(event), priority: priority)
+            return .init(.asyncEvent(type), priority: priority)
         }
         
         if case .notDetermined = event.payload.value {
-            return .init(.asyncEvent(event))
+            return .init(.asyncEvent(type))
         }
         
         guard case .denied(let date) = event.payload.value else {
@@ -74,24 +76,34 @@ public class Publish<T: EventAction> {
         }
         
         if event.shouldRunNow {
-            return .init(.asyncEvent(event), delay: delay)
+            return .init(.asyncEvent(type), delay: delay)
         }
         
-        return .init(.asyncEvent(event), priority: .later(date, event.scheduleTime))
+        return .init(.asyncEvent(type), priority: .later(date, event.scheduleTime))
     }
     
-    public static func schedule(delay: TimeInterval = 0) {
+    public func schedule(delay: TimeInterval = 0) {
         //print(self.description)
         self.asBlock(delay)?.publish()
     }
     
-    public static func runNow(delay: TimeInterval = 0) {
+    public func runNow(delay: TimeInterval = 0) {
         Block(.asyncEvent(
-            T.create(status: .notDetermined)
+            self.type//.create(status: .notDetermined)
         ), delay: delay).publish()
     }
     
-    static func create<T: EventAction>(_ type: T.Type) -> Publish<T> {
-        return .init()
+    static func create(_ type: T.Type) -> Publish<T> {
+        return .init(type)
+    }
+    
+    private init(_ type: T.Type) {
+        self.type = type
+    }
+}
+
+public extension EventAction {
+    static func asPublish() -> Publish<EventAction> {
+        return Publish.create(self.self)
     }
 }

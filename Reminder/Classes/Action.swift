@@ -12,10 +12,10 @@ public enum ActionBlock {
     case async((@escaping (ReminderStatus) -> Void) -> Void)
     case block(() -> ReminderStatus)
     
-    static func asyncEvent<T: EventAction>(_ object: T) -> ActionBlock {
+    static func asyncEvent<T: EventAction>(_ type: T.Type) -> ActionBlock {
         return .async({ asyncBlock in
-            T.async({ status in
-                T.get().update(with: status)
+            type.async({ status in
+                type.get().update(with: status)
                 asyncBlock(status)
             })
         })

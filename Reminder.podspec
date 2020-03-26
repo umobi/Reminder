@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Reminder'
-  s.version          = '1.0.0-beta3'
-  s.summary          = 'This is a beta library.'
+  s.version          = '1.0.0'
+  s.summary          = 'Reminder is a library that helps by managing the scheduled actions on your app.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-Do not use this library. It may cause unexpected actions
+  Using Reminder for creating async actions, it will be much more easier. All actions will be scheduled on a queue that will be consumed ate fire time.
                        DESC
 
   s.homepage         = 'https://github.com/umobi/Reminder'
@@ -28,7 +28,7 @@ Do not use this library. It may cause unexpected actions
   s.source           = { :git => 'https://github.com/umobi/Reminder.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.swift_version = '5.0'
+  s.swift_version = '5.1'
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'Reminder/Classes/**/*'

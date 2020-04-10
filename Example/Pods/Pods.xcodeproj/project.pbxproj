@@ -36,14 +36,14 @@
 
 /* Begin PBXFileReference section */
 		060AAA997DF38A9C4290E96185385691 /* Reminder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Reminder.modulemap; sourceTree = "<group>"; };
-		0C15B0EB2321DA590089AA47 /* EventConditional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventConditional.swift; path = Reminder/Classes/EventConditional.swift; sourceTree = "<group>"; };
-		0C785F6C2321A6CC00D8CF62 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = Reminder/Classes/Queue.swift; sourceTree = "<group>"; };
-		0C785F6E2321A72400D8CF62 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Block.swift; path = Reminder/Classes/Block.swift; sourceTree = "<group>"; };
-		0C785F702321A78900D8CF62 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Action.swift; path = Reminder/Classes/Action.swift; sourceTree = "<group>"; };
-		0C785F722321A7A500D8CF62 /* ReminderStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReminderStatus.swift; path = Reminder/Classes/ReminderStatus.swift; sourceTree = "<group>"; };
-		0C785F742321A8A200D8CF62 /* EventAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventAction.swift; path = Reminder/Classes/EventAction.swift; sourceTree = "<group>"; };
-		11351861279B0EF709D89A12DD023443 /* Event.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Event.swift; path = Reminder/Classes/Event.swift; sourceTree = "<group>"; };
-		11C8D871847EAF00FC346BBEB788D824 /* ReminderProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReminderProtocol.swift; path = Reminder/Classes/ReminderProtocol.swift; sourceTree = "<group>"; };
+		0C15B0EB2321DA590089AA47 /* EventConditional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventConditional.swift; sourceTree = "<group>"; };
+		0C785F6C2321A6CC00D8CF62 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		0C785F6E2321A72400D8CF62 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		0C785F702321A78900D8CF62 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		0C785F722321A7A500D8CF62 /* ReminderStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderStatus.swift; sourceTree = "<group>"; };
+		0C785F742321A8A200D8CF62 /* EventAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAction.swift; sourceTree = "<group>"; };
+		11351861279B0EF709D89A12DD023443 /* Event.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		11C8D871847EAF00FC346BBEB788D824 /* ReminderProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReminderProtocol.swift; sourceTree = "<group>"; };
 		177229CD877459BE209F7F75A8040C35 /* Pods-Reminder_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Reminder_Tests-dummy.m"; sourceTree = "<group>"; };
 		1AD5B306AAC9626794464E20123B1FC3 /* Pods_Reminder_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reminder_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E8900C217BDEC39FE8FD9FA1EBEE44A /* Pods-Reminder_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Reminder_Tests.modulemap"; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 		1FDCE2C4F3235808AE66A70ED02CB694 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		34C4F6DABADF282C5912D94CBF244A05 /* Pods-Reminder_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Reminder_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		49B203EE3BDBAEEEB84B589183D81817 /* Payload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Payload.swift; path = Reminder/Classes/Payload.swift; sourceTree = "<group>"; };
+		49B203EE3BDBAEEEB84B589183D81817 /* Payload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		49B547750074E1800338B1474D036B5C /* Pods-Reminder_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Reminder_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		4EA7F086C7BF583C32146E6E3C517E3B /* Pods-Reminder_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Reminder_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		588C737903A01863133CEB580F9A3D36 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 				D348472D34B78062AAC134342F326A02 /* Support Files */,
 			);
 			name = Reminder;
-			path = ../..;
+			path = ../../Sources/Reminder;
 			sourceTree = "<group>";
 		};
 		6FA8B0C488C92B8588B47C420ABE0D4D /* Products */ = {

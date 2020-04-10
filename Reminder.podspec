@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Reminder'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'Reminder is a library that helps by managing the scheduled actions on your app.'
 
 # This description is used to generate tags and improve search results.
@@ -29,9 +29,9 @@ Pod::Spec.new do |s|
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.swift_version = '5.1'
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
 
-  s.source_files = 'Reminder/Classes/**/*'
+  s.source_files = 'Sources/**/*'
   
   # s.resource_bundles = {
   #   'Reminder' => ['Reminder/Assets/*.png']
